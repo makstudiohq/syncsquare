@@ -125,7 +125,7 @@ export default async function handler(request, response) {
 
     const firstNameRaw = name.split(/\s+/)[0] || name;
     const firstName = escapeHtml(firstNameRaw);
-    const logoUrl = 'https://syncsquare.io/brand/syncsquare-email.png';
+    const logoUrl = 'https://www.syncsquare.io/brand/syncsquare-email.png';
     await sendEmail(apiKey, {
       from,
       to: [email],
@@ -161,7 +161,7 @@ export default async function handler(request, response) {
             </td>
           </tr>
         </table>
-        <p style="margin:18px 0 0;color:#737870;font-size:12px;line-height:1.6">SyncSquare &middot; <a href="https://syncsquare.io" style="color:#737870;text-decoration:underline">syncsquare.io</a></p>
+        <p style="margin:18px 0 0;color:#737870;font-size:12px;line-height:1.6">SyncSquare &middot; <a href="https://www.syncsquare.io" style="color:#737870;text-decoration:underline">syncsquare.io</a></p>
       </td>
     </tr>
   </table>

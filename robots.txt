@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /api/
 
-Sitemap: https://syncsquare.io/sitemap.xml
+Sitemap: https://www.syncsquare.io/sitemap.xml
