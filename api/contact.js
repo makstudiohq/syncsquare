@@ -123,14 +123,51 @@ export default async function handler(request, response) {
       text: `New SyncSquare enquiry\n\nName: ${name}\nWork email: ${email}\nFirm: ${firm || 'Not provided'}\nTopic: ${topic}\n\nMessage:\n${message}`
     }, `lead-${fingerprint}`);
 
-    const firstName = escapeHtml(name.split(/\s+/)[0] || name);
+    const firstNameRaw = name.split(/\s+/)[0] || name;
+    const firstName = escapeHtml(firstNameRaw);
+    const logoUrl = 'https://syncsquare.io/brand/syncsquare-email.png';
     await sendEmail(apiKey, {
       from,
       to: [email],
       reply_to: replyTo,
       subject: 'Your note is with us | SyncSquare',
-      html: `<div style="font-family:Arial,sans-serif;color:#0B0C0E;max-width:600px"><div style="font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#1F7A8C">SyncSquare</div><h1 style="font-size:26px;margin:24px 0 14px">Your note is with us.</h1><p style="font-size:16px;line-height:1.65">Hi ${firstName},</p><p style="font-size:16px;line-height:1.65">Thank you for reaching out to SyncSquare. One of our co-founders will review your message personally and get in touch within one business day.</p><p style="font-size:16px;line-height:1.65">Your message stays private and is only shared with the SyncSquare team.</p><p style="font-size:16px;line-height:1.65;margin-top:28px">The SyncSquare co-founders</p></div>`,
-      text: `Hi ${name.split(/\s+/)[0] || name},\n\nThank you for reaching out to SyncSquare. One of our co-founders will review your message personally and get in touch within one business day.\n\nYour message stays private and is only shared with the SyncSquare team.\n\nThe SyncSquare co-founders`
+      html: `<!doctype html>
+<html lang="en">
+<body style="margin:0;padding:0;background:#F3F4F1;color:#0B0C0E;font-family:Arial,Helvetica,sans-serif">
+  <div style="display:none;max-height:0;overflow:hidden;opacity:0">A SyncSquare co-founder will be in touch within one business day.</div>
+  <table role="presentation" width="100%" cellspacing="0" cellpadding="0" border="0" style="width:100%;background:#F3F4F1">
+    <tr>
+      <td align="center" style="padding:36px 16px">
+        <table role="presentation" width="640" cellspacing="0" cellpadding="0" border="0" style="width:100%;max-width:640px;background:#FFFFFF;border:1px solid #DDE0DB;border-collapse:separate">
+          <tr><td style="height:5px;background:#1F7A8C;font-size:0;line-height:0">&nbsp;</td></tr>
+          <tr>
+            <td style="padding:34px 42px 24px">
+              <img src="${logoUrl}" width="210" height="52" alt="SyncSquare" style="display:block;width:210px;max-width:100%;height:52px;border:0">
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:8px 42px 42px">
+              <p style="margin:0 0 18px;color:#1F7A8C;font-size:12px;font-weight:700;line-height:1.4;letter-spacing:1.6px;text-transform:uppercase">Message received</p>
+              <h1 style="margin:0 0 26px;color:#0B0C0E;font-size:34px;font-weight:600;line-height:1.15;letter-spacing:0">Your note is with us.</h1>
+              <p style="margin:0 0 18px;color:#30343A;font-size:16px;line-height:1.7">Hi ${firstName},</p>
+              <p style="margin:0 0 18px;color:#30343A;font-size:16px;line-height:1.7">Thank you for reaching out to SyncSquare. One of our co-founders will read your note personally and be in touch within one business day.</p>
+              <p style="margin:0 0 30px;color:#30343A;font-size:16px;line-height:1.7">If there is anything useful to add in the meantime, simply reply to this email.</p>
+              <p style="margin:0;color:#0B0C0E;font-size:16px;font-weight:600;line-height:1.6">The SyncSquare co-founders</p>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding:30px 42px;background:#0B0C0E;color:#FAFAF9">
+              <p style="margin:0;font-size:20px;font-weight:600;line-height:1.4;letter-spacing:0">Everything your company knows,<br><span style="color:#7FC4D4">in one square.</span></p>
+            </td>
+          </tr>
+        </table>
+        <p style="margin:18px 0 0;color:#737870;font-size:12px;line-height:1.6">SyncSquare &middot; <a href="https://syncsquare.io" style="color:#737870;text-decoration:underline">syncsquare.io</a></p>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>`,
+      text: `Hi ${firstNameRaw},\n\nThank you for reaching out to SyncSquare. One of our co-founders will read your note personally and be in touch within one business day.\n\nIf there is anything useful to add in the meantime, simply reply to this email.\n\nThe SyncSquare co-founders\n\nEverything your company knows, in one square.`
     }, `ack-${fingerprint}`);
   } catch (error) {
     recentRequests.delete(rateKey);

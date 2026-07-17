@@ -1,7 +1,14 @@
 {
+  "cleanUrls": true,
+  "trailingSlash": false,
   "redirects": [
-    { "source": "/index.html", "destination": "/", "permanent": true },
-    { "source": "/second-brain-landing.html", "destination": "/", "permanent": true }
+    { "source": "/index", "destination": "/", "permanent": true },
+    { "source": "/second-brain-landing", "destination": "/", "permanent": true },
+    { "source": "/case-study-10m-mandate", "destination": "/blogs/10m-mandate", "permanent": true },
+    { "source": "/case-study-three-dormant-founders", "destination": "/blogs/three-dormant-founders", "permanent": true },
+    { "source": "/case-study-nine-warm-intros", "destination": "/blogs/nine-warm-intros", "permanent": true },
+    { "source": "/case-study-fifteen-year-promise", "destination": "/blogs/fifteen-year-promise", "permanent": true },
+    { "source": "/case-study-rainmaker-pipeline", "destination": "/blogs/rainmaker-pipeline", "permanent": true }
   ],
   "headers": [
     {
